@@ -50,13 +50,6 @@ variable "cluster_name" {
   type    = string
   default = "d3hl"
 }
-
-variable "default_gateway" {
-  type    = string
-  default = "192.168.2.1" 
-}
-
-
 variable "talos_ips" {
   type=map(string)
   default = {

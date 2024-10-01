@@ -39,7 +39,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
     ip_config {
       ipv4 {
         address = "${var.talos_cp_01_ip_addr}/24"
-        gateway = var.default_gateway
+        gateway = local.gateway
       }
       ipv6 {
         address = "dhcp"
