@@ -2,7 +2,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
   name        = "talos-cp-01"
   description = "Managed by Terraform"
   tags        = ["terraform"]
-  node_name   = "<your proxmox node>"
+  node_name   = var.lxc-common.node_name 
   on_boot     = true
 
   cpu {
