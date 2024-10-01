@@ -33,7 +33,7 @@ resource "talos_machine_configuration_apply" "worker_config_apply" {
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_worker.machine_configuration
   count                       = 2
-  node                        = var.talos_worker_01_ip_addr
+  node                        = var.talos_ips.talos_worker_01_ip_addr
 }
 
 resource "talos_machine_bootstrap" "bootstrap" {
