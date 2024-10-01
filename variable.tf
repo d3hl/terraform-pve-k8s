@@ -37,9 +37,29 @@ variable "lxc-common" {
 }
 locals {
   os_type = "debian"
+  datastore_id                   = "zvm"
   ct_datastore_template_location = "local"
   ct_datastore_storage_location  = "local"
   ct_source_file_path            = "http://download.proxmox.com/images/system/debian-12-standard_12.2-1_amd64.tar.zst"
   dns                            = ["192.168.2.10"]
   gateway                        = "192.168.2.1"
+}
+
+
+variable "cluster_name" {
+  type    = string
+  default = "d3hl"
+}
+
+variable "default_gateway" {
+  type    = string
+  default = "192.168.2.1" 
+}
+
+variable "talos_ips" {
+  type=map(object({
+    talos_cp_01_ip_addr = ""
+    talos_wk_01_ip_addr = ""
+  })
+  )
 }
