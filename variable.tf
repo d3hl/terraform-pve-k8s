@@ -56,10 +56,12 @@ variable "default_gateway" {
   default = "192.168.2.1" 
 }
 
+
 variable "talos_ips" {
-  type=map(object({
+  type=map(string)
+  default = {
     talos_cp_01_ip_addr = ""
     talos_wk_01_ip_addr = ""
-  })
-  )
-}
+  }
+  
+  }
