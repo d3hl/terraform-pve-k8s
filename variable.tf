@@ -16,11 +16,11 @@ locals {
 }
 variable "talos-common" {
   type=object({
-    node_name = string
-    vm_id = number
-    cp_cores                          = 2 
-    wk_cores                          = 4 
-    memory                         = 4096
+    node_name         = string
+    vm_id             = number
+    cp_cores          = number 
+    wk_cores          = number 
+    memory            = number
   })
 }
 variable "talos_ips" {
