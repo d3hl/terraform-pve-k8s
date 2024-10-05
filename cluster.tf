@@ -1,13 +1,13 @@
 resource "talos_machine_secrets" "machine_secrets" {}
 
 data "talos_client_configuration" "talosconfig" {
-  cluster_name         = var.cluster_name
+  cluster_name         = var.locals.cluster_name
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
   endpoints            = [var.talos_ips.talos_cp_01_ip_addr]
 }
 
 data "talos_machine_configuration" "machineconfig_cp" {
-  cluster_name     = var.cluster_name
+  cluster_name     = var.locals.cluster_name
   cluster_endpoint = "https://${var.talos_ips.talos_cp_01_ip_addr}:6443"
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
@@ -22,18 +22,18 @@ resource "talos_machine_configuration_apply" "cp_config_apply" {
 }
 
 data "talos_machine_configuration" "machineconfig_worker" {
-  cluster_name     = var.cluster_name
+  cluster_name     = locals.cluster_name
   cluster_endpoint = "https://${var.talos_ips.talos_cp_01_ip_addr}:6443"
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
 }
 
 resource "talos_machine_configuration_apply" "worker_config_apply" {
-  depends_on                  = [ proxmox_virtual_environment_vm.talos_worker_1 ]
+  depends_on                  = [ proxmox_virtual_environment_vm.talos_wk_1 ]
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_worker.machine_configuration
-  count                       = 2
-  node                        = var.talos_ips.talos_worker_01_ip_addr
+  count                       = 1
+  node                        = var.talos_ips.talos_wk_01_ip_addr
 }
 
 resource "talos_machine_bootstrap" "bootstrap" {

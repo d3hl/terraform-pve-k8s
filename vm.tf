@@ -2,16 +2,16 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
   name        = "talos-cp-01"
   description = "Managed by Terraform"
   tags        = ["terraform"]
-  node_name   = var.lxc-common.node_name 
+  node_name   = var.talos-common.node_name 
   on_boot     = true
 
   cpu {
-    cores = 2
+    cores = var.talos-common.cp_cores
     type = "x86-64-v2-AES"
   }
 
   memory {
-    dedicated = 4096
+    dedicated = var.talos-common.memory
   }
 
   agent {
@@ -19,7 +19,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
   }
 
   network_device {
-    bridge = var.lxc-common.ct_bridge
+    bridge = var.locals.bridge
   }
 
   disk {
@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
   }
 
   operating_system {
-    type = "l26" # Linux Kernel 2.6 - 5.X.
+    type = locals.os_type 
   }
 
   initialization {
@@ -39,30 +39,27 @@ resource "proxmox_virtual_environment_vm" "talos_cp_01" {
     ip_config {
       ipv4 {
         address = "${var.talos_cp_01_ip_addr}/24"
-        gateway = local.gateway
-      }
-      ipv6 {
-        address = "dhcp"
+        gateway = locals.gateway
       }
     }
   }
 }
 
-resource "proxmox_virtual_environment_vm" "talos_worker_01" {
+resource "proxmox_virtual_environment_vm" "talos_wk_01" {
   depends_on = [ proxmox_virtual_environment_vm.talos_cp_01 ]
-  name        = "talos-worker-01"
+  name        = "talos-wk-01"
   description = "Managed by Terraform"
   tags        = ["terraform","talos","k8s"]
-  node_name   = var.lxc-common.node_name
+  node_name   = var.talos-common.node_name
   on_boot     = true
 
   cpu {
-    cores = 4
+    cores = var.talos-common.wk_cores
     type = "x86-64-v2-AES"
   }
 
   memory {
-    dedicated = 4096
+    dedicated = var.talos-common.memory
   }
 
   agent {
@@ -70,7 +67,7 @@ resource "proxmox_virtual_environment_vm" "talos_worker_01" {
   }
 
   network_device {
-    bridge = local.ct_bridge
+    bridge = local.bridge
   }
 
   disk {
@@ -82,15 +79,15 @@ resource "proxmox_virtual_environment_vm" "talos_worker_01" {
   }
 
   operating_system {
-    type = "l26" # Linux Kernel 2.6 - 5.X.
+    type = locals.os_type
   }
 
   initialization {
     datastore_id = local.datastore_id
     ip_config {
       ipv4 {
-        address = "${var.talos_worker_01_ip_addr}/24"
-        gateway = var.default_gateway
+        address = "${var.talos_wk_01_ip_addr}/24"
+        gateway = locals.gateway
       }
       ipv6 {
         address = "dhcp"
