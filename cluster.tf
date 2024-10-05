@@ -7,7 +7,7 @@ data "talos_client_configuration" "talosconfig" {
 }
 
 data "talos_machine_configuration" "machineconfig_cp" {
-  cluster_name     = locals.cluster_name
+  cluster_name     = var.talos-common.cluster_name
   cluster_endpoint = "https://${var.talos_ips.talos_cp_1_ip_addr}:6443"
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets

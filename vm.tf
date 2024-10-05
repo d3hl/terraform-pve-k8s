@@ -19,7 +19,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_1" {
   }
 
   network_device {
-    bridge = var.locals.bridge
+    bridge = local.bridge
   }
 
   disk {
@@ -31,7 +31,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_1" {
   }
 
   operating_system {
-    type = locals.os_type 
+    type = local.os_type 
   }
 
   initialization {
@@ -39,7 +39,7 @@ resource "proxmox_virtual_environment_vm" "talos_cp_1" {
     ip_config {
       ipv4 {
         address = "${var.talos_cp_01_ip_addr}/24"
-        gateway = locals.gateway
+        gateway = local.gateway
       }
     }
   }
@@ -79,7 +79,7 @@ resource "proxmox_virtual_environment_vm" "talos_wk_1" {
   }
 
   operating_system {
-    type = locals.os_type
+    type = local.os_type
   }
 
   initialization {
@@ -87,7 +87,7 @@ resource "proxmox_virtual_environment_vm" "talos_wk_1" {
     ip_config {
       ipv4 {
         address = "${var.talos_wk_1_ip_addr}/24"
-        gateway = locals.gateway
+        gateway = local.gateway
       }
       ipv6 {
         address = "dhcp"
