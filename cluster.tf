@@ -53,7 +53,7 @@ data "talos_cluster_health" "health" {
 data "talos_cluster_kubeconfig" "kubeconfig" {
   depends_on           = [ talos_machine_bootstrap.bootstrap, data.talos_cluster_health.health ]
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
-  node                 = "var.talos_cp_1_ip_addr"
+  node                 = "var.talos_ips.talos_cp_1_ip_addr"
 }
 
 output "talosconfig" {
