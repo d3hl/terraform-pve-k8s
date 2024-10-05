@@ -1,13 +1,13 @@
 resource "talos_machine_secrets" "machine_secrets" {}
 
 data "talos_client_configuration" "talosconfig" {
-  cluster_name         = var.locals.cluster_name
+  cluster_name         = locals.cluster_name
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
   endpoints            = [var.talos_ips.talos_cp_01_ip_addr]
 }
 
 data "talos_machine_configuration" "machineconfig_cp" {
-  cluster_name     = var.locals.cluster_name
+  cluster_name     = locals.cluster_name
   cluster_endpoint = "https://${var.talos_ips.talos_cp_01_ip_addr}:6443"
   machine_type     = "controlplane"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets
