@@ -1,7 +1,7 @@
 resource "talos_machine_secrets" "machine_secrets" {}
 
 data "talos_client_configuration" "talosconfig" {
-  cluster_name         = locals.cluster_name
+  cluster_name         = var.talos-common.cluster_name
   client_configuration = talos_machine_secrets.machine_secrets.client_configuration
   endpoints            = [var.talos_ips.talos_cp_01_ip_addr]
 }
@@ -22,7 +22,7 @@ resource "talos_machine_configuration_apply" "cp_config_apply" {
 }
 
 data "talos_machine_configuration" "machineconfig_worker" {
-  cluster_name     = locals.cluster_name
+  cluster_name     = var.talos-common.cluster_name 
   cluster_endpoint = "https://${var.talos_ips.talos_cp_01_ip_addr}:6443"
   machine_type     = "worker"
   machine_secrets  = talos_machine_secrets.machine_secrets.machine_secrets

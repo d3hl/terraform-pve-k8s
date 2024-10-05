@@ -14,6 +14,7 @@ locals {
 variable "talos-common" {
   type=object({
     node_name         = string
+     cluster_name = string
     vm_id             = number
     cp_cores          = number 
     wk_cores          = number 
