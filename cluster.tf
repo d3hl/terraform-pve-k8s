@@ -18,7 +18,7 @@ resource "talos_machine_configuration_apply" "cp_config_apply" {
   client_configuration        = talos_machine_secrets.machine_secrets.client_configuration
   machine_configuration_input = data.talos_machine_configuration.machineconfig_cp.machine_configuration
   count                       = 1
-  node                        = var.talos_ips.talos_cp_01_ip_addr
+  node                        = var.talos_ips.talos_cp_1_ip_addr
 }
 
 data "talos_machine_configuration" "machineconfig_worker" {
