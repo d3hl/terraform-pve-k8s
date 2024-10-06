@@ -11,16 +11,6 @@ locals {
   disk                           = 10
 
 }
-
-
-locals {
-  talos = {
-    version = "v1.7.4"
-  }
-}
-
-
-
 variable "talos-common" {
   type=object({
     node_name         = string
