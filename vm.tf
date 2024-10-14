@@ -24,8 +24,10 @@ resource "proxmox_virtual_environment_vm" "talos_cp_1" {
 
   disk {
     datastore_id = local.datastore_id
-    file_id      = proxmox_virtual_environment_download_file.talos_nocloud_image.id
+    #file_id      = proxmox_virtual_environment_download_file.talos_nocloud_image.id
     #file_format  = "raw"
+    file_id      = "talos-v1.8.1-nocloud-amd64.iso" 
+    file_format  = "iso"
     interface    = "virtio0"
     size         = 20
   }
@@ -72,8 +74,9 @@ resource "proxmox_virtual_environment_vm" "talos_wk_1" {
 
   disk {
     datastore_id = local.datastore_id
-    file_id      = proxmox_virtual_environment_download_file.talos_nocloud_image.id
-    #file_format  = "raw"
+#    file_id      = proxmox_virtual_environment_download_file.talos_nocloud_image.id
+    file_id      = "talos-v1.8.1-nocloud-amd64.iso" 
+    file_format  = "iso"
     interface    = "virtio0"
     size         = 20
   }
