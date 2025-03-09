@@ -19,6 +19,8 @@ variable "talos-common" {
     cp_cores          = number 
     wk_cores          = number 
     memory            = number
+    pveuser           = string
+    vm_user           = string
   })
 }
 variable "talos_ips" {
@@ -30,11 +32,21 @@ variable "talos_ips" {
   
   }
 
-variable "vm_user" {}
-variable "pveuser" {}
-variable "pvepassword" {}
-variable "api_token" {}
-variable "endpoint" {}
+variable "credentials" {
+  type=object({
+    endpoint =  string
+    pveuser  =  string
+    pvepassword = string
+    api_token = string
+  })
+}
+
+
+#variable "vm_user" {}
+#variable "pveuser" {}
+#variable "pvepassword" {}
+#variable "api_token" {}
+#variable "endpoint" {}
 variable "project_name" {
   type        = string
   default     = "hl-proj"
