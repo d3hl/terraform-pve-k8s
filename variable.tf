@@ -19,7 +19,6 @@ variable "talos-common" {
     cp_cores          = number 
     wk_cores          = number 
     memory            = number
-    pveuser           = string
     vm_user           = string
   })
 }
