@@ -37,11 +37,11 @@ variable "api_token" {}
 variable "endpoint" {}
 variable "project_name" {
   type        = string
-  default     = "ncdv-hl"
+  default     = "hl-proj"
 }
 variable "workspace" {
   type        = string
-  default     = "d3-homelab"
+  default     = "homelab"
 }
 variable "resource_tags" {
   type        = map(string)
